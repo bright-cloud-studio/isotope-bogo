@@ -30,12 +30,6 @@ class IsotopeBOGO extends System {
 
         // System Log Message
         \Controller::log('BOGO: checkCollectionQuantity() Triggered', __CLASS__ . '::' . __FUNCTION__, 'GENERAL');
-        
-        // Reset our message log so we don't get stacking errors every time
-        Message::reset();
-        
-        // None of our conditions hit, move on
-        return false;
     }
     
     
@@ -44,9 +38,6 @@ class IsotopeBOGO extends System {
 
         // System Log Message
         \Controller::log('BOGO: updateCollectionQuantity() Triggered', __CLASS__ . '::' . __FUNCTION__, 'GENERAL');
-        
-        // Return our modified set
-        return $arrSet;
     }
 
     
