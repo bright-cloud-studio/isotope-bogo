@@ -29,7 +29,9 @@ class IsotopeBOGO extends System {
     public function checkCollectionQuantity( Product $objProduct, $intQuantity, IsotopeProductCollection $objCollection ){
 
         // System Log Message
-        \Controller::log('BOGO: checkCollectionQuantity() Triggered', __CLASS__ . '::' . __FUNCTION__, 'GENERAL');
+        \Controller::log('BOGO: checkCollectionQuantity Triggered', __CLASS__ . '::' . __FUNCTION__, 'GENERAL');
+
+        return false;
     }
     
     
@@ -37,7 +39,7 @@ class IsotopeBOGO extends System {
     public function updateCollectionQuantity($objItem, $arrSet, $objCart) {
 
         // System Log Message
-        \Controller::log('BOGO: updateCollectionQuantity() Triggered', __CLASS__ . '::' . __FUNCTION__, 'GENERAL');
+        \Controller::log('BOGO: updateCollectionQuantity Triggered', __CLASS__ . '::' . __FUNCTION__, 'GENERAL');
     }
 
     
@@ -45,7 +47,7 @@ class IsotopeBOGO extends System {
     public function mergeCollections(IsotopeProductCollection $oldCollection, IsotopeProductCollection $newCollection)
     {
         // System Log Message
-        \Controller::log('BOGO: mergeCollections() Triggered', __CLASS__ . '::' . __FUNCTION__, 'GENERAL'); 
+        \Controller::log('BOGO: mergeCollections Triggered', __CLASS__ . '::' . __FUNCTION__, 'GENERAL'); 
         
     }
   
