@@ -26,7 +26,7 @@ class IsotopeBOGO extends System {
 
     
     /* HOOK - Triggered when trying to add a product to the cart on a Product Reader page */
-    public function checkCollectionQuantity( Product $objProduct, $intQuantity, IsotopeProductCollection $objCollection ){
+    public function addItemToCollection( Product $objProduct, $intQuantity, IsotopeProductCollection $objCollection ){
 
         // System Log Message
         \Controller::log('BOGO: checkCollectionQuantity Triggered', __CLASS__ . '::' . __FUNCTION__, 'GENERAL');
@@ -36,7 +36,7 @@ class IsotopeBOGO extends System {
     
     
     /* HOOK - Triggered when trying to update our quantity on a Cart page */
-    public function updateCollectionQuantity($objItem, $arrSet, $objCart) {
+    public function updateItemInCollection($objItem, $arrSet, $objCart) {
 
         // System Log Message
         \Controller::log('BOGO: updateCollectionQuantity Triggered', __CLASS__ . '::' . __FUNCTION__, 'GENERAL');
@@ -44,7 +44,7 @@ class IsotopeBOGO extends System {
 
     
     /* HOOK - Triggered when two carts have merged together (when a guest logs in while having items in their cart, while their account already had a cart attached to it */
-    public function mergeCollections(IsotopeProductCollection $oldCollection, IsotopeProductCollection $newCollection)
+    public function mergeWithGuestCollection(IsotopeProductCollection $oldCollection, IsotopeProductCollection $newCollection)
     {
         // System Log Message
         \Controller::log('BOGO: mergeCollections Triggered', __CLASS__ . '::' . __FUNCTION__, 'GENERAL'); 
