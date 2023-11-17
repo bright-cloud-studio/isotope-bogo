@@ -10,6 +10,6 @@
 */
 
 /* Isotope Hooks */
-$GLOBALS['ISO_HOOKS']['addProductToCollection'][] = array('Bcs\Backend\IsotopeBOGO', 'checkCollectionQuantity');
-$GLOBALS['ISO_HOOKS']['updateItemInCollection'][] = array('Bcs\Backend\IsotopeBOGO', 'updateCollectionQuantity');
-$GLOBALS['ISO_HOOKS']['copiedCollectionItems'][] = array('Bcs\Backend\IsotopeBOGO', 'mergeCollections');
+$GLOBALS['ISO_HOOKS']['addProductToCollection'][] = array('Bcs\Backend\IsotopeBOGO', 'addItemToCollection');
+$GLOBALS['ISO_HOOKS']['updateItemInCollection'][] = array('Bcs\Backend\IsotopeBOGO', 'updateItemInCollection');
+$GLOBALS['ISO_HOOKS']['copiedCollectionItems'][] = array('Bcs\Backend\IsotopeBOGO', 'mergeWithGuestCollection');
