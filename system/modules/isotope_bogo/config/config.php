@@ -10,9 +10,10 @@
 */
 
 /* Isotope Hooks */
-$GLOBALS['ISO_HOOKS']['addProductToCollection'][] = array('Bcs\Backend\IsotopeBOGO', 'addItemToCollection');
-$GLOBALS['ISO_HOOKS']['updateItemInCollection'][] = array('Bcs\Backend\IsotopeBOGO', 'updateItemInCollection');
-$GLOBALS['ISO_HOOKS']['copiedCollectionItems'][] = array('Bcs\Backend\IsotopeBOGO', 'mergeWithGuestCollection');
+$GLOBALS['ISO_HOOKS']['addProductToCollection'][]     = array('Bcs\Backend\IsotopeBOGO', 'addItemToCollection');
+$GLOBALS['ISO_HOOKS']['postAddProductToCollection'][] = array('Bcs\Backend\IsotopeBOGO', 'postAddItemToCollection');
+$GLOBALS['ISO_HOOKS']['updateItemInCollection'][]     = array('Bcs\Backend\IsotopeBOGO', 'updateItemInCollection');
+$GLOBALS['ISO_HOOKS']['copiedCollectionItems'][]      = array('Bcs\Backend\IsotopeBOGO', 'mergeWithGuestCollection');
 
 // Calculate Price
-$GLOBALS['ISO_HOOKS']['calculatePrice'][] = array('Bcs\Backend\IsotopeBOGO', 'calculatePriceHook');
+$GLOBALS['ISO_HOOKS']['calculatePrice'][]             = array('Bcs\Backend\IsotopeBOGO', 'calculatePriceHook');
