@@ -12,11 +12,13 @@
 namespace Bcs\Backend;
 
 use Contao\System;
+use Isotope\Isotope;
 use Isotope\Interfaces\IsotopeProductCollection;
 use Isotope\Message;
 use Isotope\Model\Config;
 use Isotope\Model\Product;
 use Isotope\Model\ProductCollection;
+use Isotope\Model\ProductCollectionItem;
 use Isotope\Model\ProductCollection\Cart;
 use Isotope\Model\ProductCollection\Order;
 
@@ -40,11 +42,13 @@ class IsotopeBOGO extends System {
         // System Log Message
         \Controller::log('BOGO: postAddItemToCollection Triggered', __CLASS__ . '::' . __FUNCTION__, 'GENERAL');
 
-        $item->quantity = 543;
-        $item->quantity_free = 987;
-        $item->save();
+        $free_count = $item->quantity / 2;
         
-        return $intQuantity;
+        $item->quantity_free = $free_count;
+        $item->quantity += $free_count;
+        
+        $item->save();
+
     }
 
 
@@ -57,8 +61,11 @@ class IsotopeBOGO extends System {
 
         // System Log Message
         \Controller::log('BOGO: updateCollectionQuantity Triggered', __CLASS__ . '::' . __FUNCTION__, 'GENERAL');
-
-        $objItem->quantity_free = 123;
+        
+        $free_count = $objItem->quantity / 2;
+        
+        $objItem->quantity_free = $free_count;
+        $objItem->quantity += $free_count;
         
         return $arrSet;
     }
