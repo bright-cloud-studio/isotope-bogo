@@ -32,12 +32,33 @@ class IsotopeBOGO extends System {
         
         return $intQuantity;
     }
+
+
+
+    public function postAddItemToCollection(ProductCollectionItem &$item, int $quantity, ProductCollection $collection){
+        
+        // System Log Message
+        \Controller::log('BOGO: postAddItemToCollection Triggered', __CLASS__ . '::' . __FUNCTION__, 'GENERAL');
+
+        $item->quantity = 543;
+        $item->quantity_free = 987;
+        $item->save();
+        
+        return $intQuantity;
+    }
+
+
+
+    
+    
     
     /* HOOK - Triggered when trying to update our quantity on a Cart page */
     public function updateItemInCollection($objItem, $arrSet, $objCart) {
 
         // System Log Message
         \Controller::log('BOGO: updateCollectionQuantity Triggered', __CLASS__ . '::' . __FUNCTION__, 'GENERAL');
+
+        $objItem->quantity_free = 123;
         
         return $arrSet;
     }
