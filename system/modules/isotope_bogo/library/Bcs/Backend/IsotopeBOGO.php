@@ -54,19 +54,6 @@ class IsotopeBOGO extends System {
     
     public function calculatePriceHook($fltPrice, $objSource, $strField, $intTaxClass, $arrOptions)
 	{
-        \Controller::log('BOGO: calculatePriceHook Triggered', __CLASS__ . '::' . __FUNCTION__, 'GENERAL');
-
-        
-		if ( !($objSource instanceof IsotopePrice) ||  
-		     ($strField != 'price' && $strField != 'low_price') ||
-		     !is_array($arrOptions) ||
-		     !$arrOptions['gift_amount']
-        )
-		{
-			return $fltPrice;
-		}
-		
-        $fltPrice = 12345;
 		return $fltPrice;
 	}
 
