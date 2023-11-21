@@ -22,8 +22,12 @@ use Isotope\Model\ProductCollectionItem;
 use Isotope\Model\ProductCollection\Cart;
 use Isotope\Model\ProductCollection\Order;
 
-class IsotopeBOGO extends System {
 
+
+
+class IsotopeBOGO extends System {
+    
+    public $tick = 0;
     
     /* HOOK - Triggered when trying to add a product to the cart on a Product Reader page */
     // RETURN PRODUCT QUANTITY
@@ -82,7 +86,9 @@ class IsotopeBOGO extends System {
     
     public function calculatePriceHook($fltPrice, $objSource, $strField, $intTaxClass, $arrOptions)
 	{
+	    // I dont think I need this hook anymore, going to do everything when the quantities are adjusted above
 		return $fltPrice;
+		    
 	}
 
 
