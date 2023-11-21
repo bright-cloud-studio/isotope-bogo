@@ -36,6 +36,10 @@ class IsotopeBOGO extends System {
         // System Log Message
         \Controller::log('BOGO: checkCollectionQuantity Triggered', __CLASS__ . '::' . __FUNCTION__, 'GENERAL');
         
+    
+        // insert custom rule into database to discount the total of the cart
+        
+        
         return $intQuantity;
     }
 
@@ -52,6 +56,8 @@ class IsotopeBOGO extends System {
         $item->quantity += $free_count;
         
         $item->save();
+        
+        // insert custom rule into the database to discount the total of the cart
 
     }
 
@@ -72,6 +78,9 @@ class IsotopeBOGO extends System {
         $objItem->quantity += $free_count;
         
         return $arrSet;
+        
+        // insert custom rule into the database to discount hte total of the cart
+        
     }
     
     /* HOOK - Triggered when two carts have merged together (when a guest logs in while having items in their cart, while their account already had a cart attached to it */
