@@ -13,7 +13,7 @@
 /**
  * Register Isotope model types
  */
-\Isotope\Model\ProductCollectionSurcharge::registerModelType('mysurcharge', \CustomSurchageModel::class);
+\Isotope\Model\ProductCollectionSurcharge::registerModelType('mysurcharge', \MySurchargeModel::class);
 
 
 
@@ -24,4 +24,4 @@ $GLOBALS['ISO_HOOKS']['updateItemInCollection'][]         = array('Bcs\Backend\I
 $GLOBALS['ISO_HOOKS']['copiedCollectionItems'][]          = array('Bcs\Backend\IsotopeBOGO', 'mergeWithGuestCollection');
 
 // Calculate Price
-$GLOBALS['ISO_HOOKS']['findSurchargesForCollection'][]    = array('Bcs\Backend\CustomSurcharge', 'findSurchargesForCollection');
+$GLOBALS['ISO_HOOKS']['findSurchargesForCollection'][]    = [\MySurcharge::class, 'findSurchargesForCollection'];
