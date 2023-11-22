@@ -100,6 +100,12 @@ class IsotopeBOGO extends System {
     
     public function findSurchargesForCollection(IsotopeProductCollection $collection): array
     {
+
+         // System Log Message
+        \Controller::log('BOGO: findSurchargesForCollection Triggered', __CLASS__ . '::' . __FUNCTION__, 'GENERAL'); 
+
+
+        
         if (!$collection instanceof IsotopeOrderableCollection) {
             return [];
         }
