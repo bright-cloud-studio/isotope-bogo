@@ -22,6 +22,8 @@ use Isotope\Model\ProductCollectionItem;
 use Isotope\Model\ProductCollection\Cart;
 use Isotope\Model\ProductCollection\Order;
 
+use Isotope\Interfaces\IsotopeOrderableCollection;
+
 
 
 
@@ -92,13 +94,28 @@ class IsotopeBOGO extends System {
         return true;
     }
 
+
+
     
-    public function calculatePriceHook($fltPrice, $objSource, $strField, $intTaxClass, $arrOptions)
-	{
-	    // I dont think I need this hook anymore, going to do everything when the quantities are adjusted above
-		return $fltPrice;
-		    
-	}
+    
+    public function findSurchargesForCollection(IsotopeProductCollection $collection): array
+    {
+        if (!$collection instanceof IsotopeOrderableCollection) {
+            return [];
+        }
+
+        $surcharges = [];
+
+        if (($surcharge = $collection->getShippingSurcharge()) !== null) {
+            $surcharges[] = $surcharge;
+        }
+
+        if (($surcharge = $collection->getPaymentSurcharge()) !== null) {
+            $surcharges[] = $surcharge;
+        }
+
+        return $surcharges;
+    }
 
 
 
