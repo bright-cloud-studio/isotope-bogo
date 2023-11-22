@@ -1,5 +1,7 @@
 <?php
 
+namespace Bcs\Backend;
+
 use Isotope\Model\ProductCollection;
 
 class MySurcharge
