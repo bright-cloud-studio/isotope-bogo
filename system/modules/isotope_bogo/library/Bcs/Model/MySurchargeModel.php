@@ -3,7 +3,7 @@
 use Isotope\Interfaces\IsotopeProductCollectionSurcharge;
 use Isotope\Model\ProductCollectionSurcharge;
 
-class CustomSurchargeModel extends ProductCollectionSurcharge implements IsotopeProductCollectionSurcharge
+class MySurchargeModel extends ProductCollectionSurcharge implements IsotopeProductCollectionSurcharge
 {
     public static function build(): self
     {
