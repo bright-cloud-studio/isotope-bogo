@@ -24,5 +24,4 @@ $GLOBALS['ISO_HOOKS']['updateItemInCollection'][]         = array('Bcs\Backend\I
 $GLOBALS['ISO_HOOKS']['copiedCollectionItems'][]          = array('Bcs\Backend\IsotopeBOGO', 'mergeWithGuestCollection');
 
 // Calculate Price
-//$GLOBALS['ISO_HOOKS']['findSurchargesForCollection'][]    = array('Bcs\Backend\IsotopeBOGO', 'findSurchargesForCollection');
-$GLOBALS['ISO_HOOKS']['findSurchargesForCollection'][] = [\CustomSurcharge::class, 'findSurchargesForCollection'];
+$GLOBALS['ISO_HOOKS']['findSurchargesForCollection'][]    = array('Bcs\Backend\IsotopeBOGO', 'findSurchargesForCollection');
