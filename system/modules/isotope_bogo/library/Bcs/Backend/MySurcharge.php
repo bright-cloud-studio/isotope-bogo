@@ -3,7 +3,7 @@
 namespace Bcs\Backend;
 
 use Isotope\Model\ProductCollection;
-use Bcs\Model;
+use Bcs\Model\MySurchargeModel;
 
 class MySurcharge
 {
