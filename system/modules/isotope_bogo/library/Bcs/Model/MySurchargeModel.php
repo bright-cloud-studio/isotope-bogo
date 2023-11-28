@@ -1,5 +1,7 @@
 <?php
 
+namespace Bcs\Model;
+
 use Isotope\Interfaces\IsotopeProductCollectionSurcharge;
 use Isotope\Model\ProductCollectionSurcharge;
 
