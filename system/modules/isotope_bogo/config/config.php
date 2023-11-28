@@ -13,7 +13,7 @@
 /**
  * Register Isotope model types
  */
-\Isotope\Model\ProductCollectionSurcharge::registerModelType('mysurcharge', \MySurchargeModel::class);
+\Isotope\Model\ProductCollectionSurcharge::registerModelType('mysurcharge', Bcs\Model\MySurchargeModel);
 
 
 
