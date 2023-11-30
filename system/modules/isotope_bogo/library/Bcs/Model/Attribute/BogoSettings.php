@@ -50,7 +50,7 @@ class BogoSettings extends Attribute implements IsotopeAttribute
     public function saveToDCA(array &$arrData)
     {
         parent::saveToDCA($arrData);
-        $arrData['fields'][$this->field_name]['inputType'] = "text";
-        $arrData['fields'][$this->field_name]['sql'] = "varchar(255) NOT NULL default '0'";
+        $arrData['fields'][$this->field_name]['inputType'] = "checkbox";
+        $arrData['fields'][$this->field_name]['sql'] = "char(1) NOT NULL default ''";
     }
 }
