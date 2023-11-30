@@ -53,7 +53,7 @@ class BogoAttribute extends Attribute implements IsotopeAttribute
         }
 
         $objContentModel = new \ContentModel();
-        $objContentModel->type = 'youtube';
+        $objContentModel->type = 'bogo';
         $objContentModel->cssID = serialize(array('', $this->field_name));
 
 
