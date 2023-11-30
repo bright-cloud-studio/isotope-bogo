@@ -15,6 +15,5 @@ ClassLoader::addClasses(array
     // Class that contains all of our functionality for the Isotope Hooks
     'Bcs\Backend\IsotopeBOGO'         => 'system/modules/isotope_bogo/library/Bcs/Backend/IsotopeBOGO.php',
     'Bcs\Model\BogoSurchargeModel'    => 'system/modules/isotope_bogo/library/Bcs/Model/BogoSurchargeModel.php',
-    'Bcs\Model\Attribute\BogoBuy'        => 'system/modules/isotope_bogo/library/Bcs/Model/Attribute/BogoBuy.php',
-    'Bcs\Model\Attribute\BogoGet'        => 'system/modules/isotope_bogo/library/Bcs/Model/Attribute/BogoGet.php'
+    'Bcs\Model\Attribute\BogoSettings'        => 'system/modules/isotope_bogo/library/Bcs/Model/Attribute/BogoSettings.php'
 ));
