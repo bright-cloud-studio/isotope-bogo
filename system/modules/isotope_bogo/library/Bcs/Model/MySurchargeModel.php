@@ -5,7 +5,7 @@ namespace Bcs\Model;
 use Isotope\Interfaces\IsotopeProductCollectionSurcharge;
 use Isotope\Model\ProductCollectionSurcharge;
 
-class MySurchargeModel extends ProductCollectionSurcharge implements IsotopeProductCollectionSurcharge
+class BogoSurchargeModel extends ProductCollectionSurcharge implements IsotopeProductCollectionSurcharge
 {
     public static function build(): self
     {
