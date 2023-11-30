@@ -15,6 +15,10 @@
  */
 \Isotope\Model\ProductCollectionSurcharge::registerModelType('bogo_surcharge', 'Bcs\Model\BogoSurchargeModel');
 
+/**
+ * Attributes
+ */
+\Isotope\Model\Attribute::registerModelType('bogo', 'Bcs\Model\Attribute\Bogo');
 
 
 /* Isotope Hooks */
