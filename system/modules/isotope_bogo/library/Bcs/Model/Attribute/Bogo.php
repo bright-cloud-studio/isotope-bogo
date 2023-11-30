@@ -10,7 +10,7 @@
  * @license    http://opensource.org/licenses/lgpl-3.0.html
  */
 
-namespace Isotope\Model\Attribute;
+namespace Bcs\Model\Attribute;
 
 use Isotope\Interfaces\IsotopeAttribute;
 use Isotope\Interfaces\IsotopeProduct;
@@ -23,7 +23,7 @@ use Isotope\Model\Attribute;
  * @copyright  Isotope eCommerce Workgroup 2009-2014
  * @author     Christoph Wiechert <cw@4wardmedia.de>
  */
-class BogoAttribute extends Attribute implements IsotopeAttribute
+class Bogo extends Attribute implements IsotopeAttribute
 {
     /**
      * Return class name for the backend widget or false if none should be available
