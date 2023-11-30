@@ -3,7 +3,6 @@
 namespace Bcs\Backend;
 
 use Isotope\Interfaces\IsotopeProductCollection;
-
 use Isotope\Model\ProductCollection;
 use Bcs\Model\BogoSurchargeModel;
 
@@ -11,7 +10,6 @@ class BogoSurcharge
 {
     public function findSurchargesForCollection(IsotopeProductCollection $collection): array
     {
-        
         // the total amount to discount from our cart
         $free_discount = 0;
         
