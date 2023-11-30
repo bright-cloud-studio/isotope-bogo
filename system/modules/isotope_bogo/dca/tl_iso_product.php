@@ -10,7 +10,7 @@
 */
 
  /* Extend the tl_user palettes */
- $GLOBALS['TL_DCA']['tl_iso_product']['palettes']['default'] = str_replace('{publish_legend}', '{bogo_legend},bogo_buy_total,bogo_get_total;{publish_legend}', $GLOBALS['TL_DCA']['tl_iso_product']['palettes']['default']);
+ $GLOBALS['TL_DCA']['tl_iso_product']['palettes']['default'] = str_replace('{general_legend}', '{bogo_legend},bogo_buy_total,bogo_get_total;{general_legend}', $GLOBALS['TL_DCA']['tl_iso_product']['palettes']['default']);
 
 
 /* Add fields to tl_iso_product */
