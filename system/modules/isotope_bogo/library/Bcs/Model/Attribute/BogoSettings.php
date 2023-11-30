@@ -23,7 +23,7 @@ use Isotope\Model\Attribute;
  * @copyright  Isotope eCommerce Workgroup 2009-2014
  * @author     Christoph Wiechert <cw@4wardmedia.de>
  */
-class BogoBuy extends Attribute implements IsotopeAttribute
+class BogoSettings extends Attribute implements IsotopeAttribute
 {
     /**
      * Return class name for the backend widget or false if none should be available
