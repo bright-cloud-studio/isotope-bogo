@@ -18,7 +18,7 @@
 
 
 // Palettes
-$GLOBALS['TL_DCA']['tl_iso_attribute']['palettes']['alternateAlias'] = '{bogo_legend},type,legend,bogo_buy,bogo_get;';
+$GLOBALS['TL_DCA']['tl_iso_attribute']['palettes']['bogo'] = '{bogo_legend},type,legend,bogo_buy,bogo_get;';
 
 // Fields
 $GLOBALS['TL_DCA']['tl_iso_attribute']['fields']['bogo_buy'] = array
