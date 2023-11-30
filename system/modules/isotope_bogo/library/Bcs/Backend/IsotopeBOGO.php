@@ -63,9 +63,6 @@ class IsotopeBOGO extends System {
 
     }
 
-
-
-    
     
     
     /* HOOK - Triggered when trying to update our quantity on a Cart page */
@@ -93,40 +90,6 @@ class IsotopeBOGO extends System {
         
         return true;
     }
-
-
-
-    
-    
-    public function findSurchargesForCollection(IsotopeProductCollection $collection): array
-    {
-
-         // System Log Message
-        \Controller::log('BOGO: findSurchargesForCollection Triggered', __CLASS__ . '::' . __FUNCTION__, 'GENERAL'); 
-
-
-        
-        if (!$collection instanceof IsotopeOrderableCollection) {
-            return [];
-        }
-
-        $surcharges = [];
-
-        if (($surcharge = $collection->getShippingSurcharge()) !== null) {
-            $surcharges[] = $surcharge;
-        }
-
-        if (($surcharge = $collection->getPaymentSurcharge()) !== null) {
-            $surcharges[] = $surcharge;
-        }
-
-        return $surcharges;
-    }
-
-
-
-
-
     
   
 }
