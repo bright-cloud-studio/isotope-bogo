@@ -23,7 +23,7 @@ use Isotope\Model\Attribute;
  * @copyright  Isotope eCommerce Workgroup 2009-2014
  * @author     Christoph Wiechert <cw@4wardmedia.de>
  */
-class Bogo extends Attribute implements IsotopeAttribute
+class BogoBuy extends Attribute implements IsotopeAttribute
 {
     /**
      * Return class name for the backend widget or false if none should be available
@@ -44,34 +44,6 @@ class Bogo extends Attribute implements IsotopeAttribute
      */
     public function generate(IsotopeProduct $objProduct, array $arrOptions = array())
     {
-        $strPoster = null;
-        $arrAttribtues = deserialize($objProduct->{$this->field_name}, true);
-
-        // Return if there is no video
-        if (empty($arrAttribtues) || !is_array($arrAttribtues)) {
-            return '';
-        }
-
-        $objContentModel = new \ContentModel();
-        $objContentModel->type = 'bogo';
-        $objContentModel->cssID = serialize(array('', $this->field_name));
-
-
-        //$objContentModel->playerSRC = serialize($arrFiles);
-        // $objContentModel->posterSRC = $strPoster;
-        $objContentModel->youtube = $arrAttribtues[0];
-
-        // TODO use default values
-        if ($arrOptions['autoplay']) {
-            $objContentModel->autoplay = '1';
-        }
-
-        if ($arrOptions['width'] || $arrOptions['height']) {
-            $objContentModel->playerSize = serialize(array($arrOptions['width'], $arrOptions['height']));
-        }
-
-        $objElement = new \ContentResponsiveYouTubeVideo($objContentModel);
-
-        return $objElement->generate();
+        
     }
 }
