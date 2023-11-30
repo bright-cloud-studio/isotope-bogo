@@ -18,8 +18,7 @@
 /**
  * Attributes
  */
-\Isotope\Model\Attribute::registerModelType('bogo_buy', 'Bcs\Model\Attribute\BogoBuy');
-\Isotope\Model\Attribute::registerModelType('bogo_get', 'Bcs\Model\Attribute\BogoGet');
+\Isotope\Model\Attribute::registerModelType('bogo_settings', 'Bcs\Model\Attribute\BogoSettings');
 
 
 /* Isotope Hooks */
