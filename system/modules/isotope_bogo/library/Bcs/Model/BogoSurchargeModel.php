@@ -9,6 +9,7 @@ class BogoSurchargeModel extends ProductCollectionSurcharge implements IsotopePr
 {
     public static function build(): self
     {
+        // These are the default values of our custom surcharge and will be manually applied when the time is right
         $surcharge = new self();
         $surcharge->label = 'My Surcharge';
         $surcharge->price = '';
