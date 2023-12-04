@@ -31,7 +31,7 @@ class IsotopeBOGO extends System {
         \Controller::log('BOGO: Hook 1', __CLASS__ . '::' . __FUNCTION__, 'GENERAL');
         
         // Get the actual product using our cart item's sku
-        $prod = Product::findBy('sku', $item->sku);
+        $prod = $objItem->getProduct();
         
         // If this product has the custom 'bogo_settings' attribute attached to it
         if(isset($prod->bogo_settings)) {
@@ -56,55 +56,37 @@ class IsotopeBOGO extends System {
     /* HOOK - When a quantity is updated on a Cart page */
     public function updateItemInCollection($objItem, $arrSet, $objCart) {
         
-        \Controller::log('BOGO: Hook 2', __CLASS__ . '::' . __FUNCTION__, 'GENERAL');
+        \Controller::log('BOGO: ' . $objItem->sku, __CLASS__ . '::' . __FUNCTION__, 'GENERAL');
 
-         // Get the actual product using our cart item's sku
-        $prod = Product::findBy('sku', $objItem->sku);
-        
-        // If this product has the custom 'bogo_settings' attribute attached to it
-        if(isset($prod->bogo_settings)) {
-            
-            // Break our comma separated value into two, [0] is how many to buy and [1] is how many you get for each [0]
-            $bogo_settings = explode(",", $prod->bogo_settings);
-            
-    	    // Calculate how many we get for free
-    	    $quantity_free = floor($arrSet['quantity'] / $bogo_settings[0]) * $bogo_settings[1];
-    	    
-    	    // Update our products quantity_free and overall quantity
-    	    $objItem->quantity_free = $quantity_free;
-            $objItem->quantity += $quantity_free;
-            
-            // Update the $arrSet quantity value
-            $arrSet['quantity'] += $quantity_free;
-            
+        // Get the actual product of our cart item
+        $product = $objItem->getProduct();
+
+        // If this product has our 'bogo_settings" custom attribute applied to it
+        if(isset($product->bogo_settings)) {
+
+            // If our requested quantity is different from the current quantity
+            if($objItem->quantity != $arrSet['quantity']) {
+                
+                // Break our comma separated value into two, [0] is how many to buy and [1] is how many you get for each [0]
+                $bogo_settings = explode(",", $product->bogo_settings);
+                
+                // Calculate how many we get for free
+    	       $quantity_free = floor($arrSet['quantity'] / $bogo_settings[0]) * $bogo_settings[1];
+
+                // Apply our free quantity to the cart item
+    	       $objItem->quantity_free = $quantity_free;
+                // Apply the quantity to the cart item
+    	       $objItem->quantity = $arrSet['quantity'] + $quantity_free;
+                // Update the $arrSet to the new quantity
+    	       $arrSet['quantity'] = $arrSet['quantity'] + $quantity_free;
+                
+            }
         }
         
         // Return the $arrSet after our manipulations
         return $arrSet;
-
-    }
-    
-    
-    
-    
-    
-    /* HOOK - Triggered when trying to add a product to the cart on a Product Reader page */
-    // RETURN PRODUCT QUANTITY
-    public function addItemToCollection( Product $objProduct, $intQuantity, IsotopeProductCollection $objCollection ){
-        
-        \Controller::log('BOGO: Hook 3', __CLASS__ . '::' . __FUNCTION__, 'GENERAL');
-
-        return $intQuantity;
     }
 
-
-
-
-    
-    
-    
-    
-    
     
     /* HOOK - Triggered when two carts have merged together (when a guest logs in while having items in their cart, while their account already had a cart attached to it */
     public function mergeWithGuestCollection(IsotopeProductCollection $oldCollection, IsotopeProductCollection $newCollection)
