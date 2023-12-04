@@ -12,8 +12,9 @@
 namespace Bcs\Backend;
 
 use Contao\System;
-use Isotope\Isotope;
+use Isotope\Interfaces\IsotopeOrderableCollection;
 use Isotope\Interfaces\IsotopeProductCollection;
+use Isotope\Isotope;
 use Isotope\Message;
 use Isotope\Model\Config;
 use Isotope\Model\Product;
@@ -22,97 +23,94 @@ use Isotope\Model\ProductCollectionItem;
 use Isotope\Model\ProductCollection\Cart;
 use Isotope\Model\ProductCollection\Order;
 
-use Isotope\Interfaces\IsotopeOrderableCollection;
-
-
-
-
 class IsotopeBOGO extends System {
     
-    public $tick = 0;
+    /* HOOK - When Products are added to the cart on a Product List page */
+    public function postAddItemToCollection(ProductCollectionItem &$item, int $quantity, ProductCollection $collection){
+
+        \Controller::log('BOGO: Hook 1', __CLASS__ . '::' . __FUNCTION__, 'GENERAL');
+        
+        // Get the actual product using our cart item's sku
+        $prod = Product::findBy('sku', $item->sku);
+        
+        // If this product has the custom 'bogo_settings' attribute attached to it
+        if(isset($prod->bogo_settings)) {
+            
+            // Break our comma separated value into two, [0] is how many to buy and [1] is how many you get for each [0]
+            $bogo_settings = explode(",", $prod->bogo_settings);
+            
+    	    // Calculate how many we get for free
+    	    $quantity_free = floor($quantity / $bogo_settings[0]) * $bogo_settings[1];
+    	    
+    	    // Apply the free quantity to our cart item
+    	    $item->quantity_free = $quantity_free;
+    	    // Update our quantity to include the free items
+            $item->quantity += $quantity_free;
+            // Save our cart item
+            $item->save();
+        }
+        
+    }
+    
+    
+    /* HOOK - When a quantity is updated on a Cart page */
+    public function updateItemInCollection($objItem, $arrSet, $objCart) {
+        
+        \Controller::log('BOGO: Hook 2', __CLASS__ . '::' . __FUNCTION__, 'GENERAL');
+
+         // Get the actual product using our cart item's sku
+        $prod = Product::findBy('sku', $objItem->sku);
+        
+        // If this product has the custom 'bogo_settings' attribute attached to it
+        if(isset($prod->bogo_settings)) {
+            
+            // Break our comma separated value into two, [0] is how many to buy and [1] is how many you get for each [0]
+            $bogo_settings = explode(",", $prod->bogo_settings);
+            
+    	    // Calculate how many we get for free
+    	    $quantity_free = floor($arrSet['quantity'] / $bogo_settings[0]) * $bogo_settings[1];
+    	    
+    	    // Update our products quantity_free and overall quantity
+    	    $objItem->quantity_free = $quantity_free;
+            $objItem->quantity += $quantity_free;
+            
+            // Update the $arrSet quantity value
+            $arrSet['quantity'] += $quantity_free;
+            
+        }
+        
+        // Return the $arrSet after our manipulations
+        return $arrSet;
+
+    }
+    
+    
+    
+    
     
     /* HOOK - Triggered when trying to add a product to the cart on a Product Reader page */
     // RETURN PRODUCT QUANTITY
     public function addItemToCollection( Product $objProduct, $intQuantity, IsotopeProductCollection $objCollection ){
         
-        // System Log Message
-        \Controller::log('BOGO: checkCollectionQuantity Triggered', __CLASS__ . '::' . __FUNCTION__, 'GENERAL');
-        
-    
-        // insert custom rule into database to discount the total of the cart
-        
-        
+        \Controller::log('BOGO: Hook 3', __CLASS__ . '::' . __FUNCTION__, 'GENERAL');
+
         return $intQuantity;
     }
 
 
 
-    public function postAddItemToCollection(ProductCollectionItem &$item, int $quantity, ProductCollection $collection){
-        
-        // System Log Message
-        \Controller::log('BOGO: postAddItemToCollection Triggered', __CLASS__ . '::' . __FUNCTION__, 'GENERAL');
-        
-        // Get our product, get our 'bogo_settings' values
-        $prod = Product::findBy('sku', $item->sku);
-        if(isset($prod->bogo_settings)) {
-            
-            // split our comma separates values to find out how many we buy to get how many for free
-            $bogo_settings = explode(",", $prod->bogo_settings);
-            
-    	    // (how many we bought divided by how many we need to buy to trigger bogo, rounded down) times how many we get for free when bogo is triggered
-    	    $quantity_free = floor($quantity / $bogo_settings[0]) * $bogo_settings[1];
-    	    
-    	    // Apply our values to the item and save it
-    	    $item->quantity_free = $quantity_free;
-            $item->quantity += $quantity_free;
-            $item->save();
-            
-        }
-        
-        
-        // STEP TWO
-        // Do the maths based on our setting
-        
-        // STEP THREE
-        // Determine what our new total is and our free count, save the settings
-
-        
-
-        /*
-        $free_count = $item->quantity / 2;
-        $item->quantity_free = $free_count;
-        $item->quantity += $free_count;
-        $item->save();
-        */
-        
-        // insert custom rule into the database to discount the total of the cart
-
-    }
 
     
     
-    /* HOOK - Triggered when trying to update our quantity on a Cart page */
-    public function updateItemInCollection($objItem, $arrSet, $objCart) {
-
-        // System Log Message
-        \Controller::log('BOGO: updateCollectionQuantity Triggered', __CLASS__ . '::' . __FUNCTION__, 'GENERAL');
-        
-        $free_count = $objItem->quantity / 2;
-        
-        $objItem->quantity_free = $free_count;
-        $objItem->quantity += $free_count;
-        
-        return $arrSet;
-        
-        // insert custom rule into the database to discount hte total of the cart
-        
-    }
+    
+    
+    
     
     /* HOOK - Triggered when two carts have merged together (when a guest logs in while having items in their cart, while their account already had a cart attached to it */
     public function mergeWithGuestCollection(IsotopeProductCollection $oldCollection, IsotopeProductCollection $newCollection)
     {
         // System Log Message
-        \Controller::log('BOGO: mergeCollections Triggered', __CLASS__ . '::' . __FUNCTION__, 'GENERAL'); 
+        \Controller::log('BOGO: Hook 4', __CLASS__ . '::' . __FUNCTION__, 'GENERAL'); 
         
         return true;
     }
