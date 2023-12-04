@@ -10,8 +10,9 @@ class BogoSurcharge
 {
     public function findSurchargesForCollection(IsotopeProductCollection $collection): array
     {
+        
         // Array to store all of our surcharges
-        $surcharges;
+        $surcharges = [];
         
         // Loop through each product in our cart
         foreach($collection->getItems() as $prod) {
@@ -44,5 +45,4 @@ class BogoSurcharge
         // Return all of our assembled surcharges
         return $surcharges;
     }
-    
 }
