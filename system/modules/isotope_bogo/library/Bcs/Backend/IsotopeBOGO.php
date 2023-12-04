@@ -54,7 +54,7 @@ class IsotopeBOGO extends System {
     
     
     /* HOOK - When a quantity is updated on a Cart page */
-    public function postUpdateItemInCollection($objItem, $arrSet, $objCart) {
+    public function updateItemInCollection($objItem, $arrSet, $objCart) {
         
         \Controller::log('BOGO: Hook 2', __CLASS__ . '::' . __FUNCTION__, 'GENERAL');
 
