@@ -10,21 +10,39 @@ class BogoSurcharge
 {
     public function findSurchargesForCollection(IsotopeProductCollection $collection): array
     {
-        // the total amount to discount from our cart
-        $free_discount = 0;
+        // Array to store all of our surcharges
+        $surcharges;
         
-        foreach($collection->getItems() as $oItem) {
-            $free_discount += $oItem->price * $oItem->quantity_free;
+        // Loop through each product in our cart
+        foreach($collection->getItems() as $prod) {
+            
+            // If this product has a free quantity attached to it
+            if($prod->quantity_free > 0) {
+                
+                // Create a new Bogo Surcharge
+                $bogo = new BogoSurchargeModel;
+                
+                // our discount total is the product's price times the amount of free items
+                $free_discount += $prod->price * $prod->quantity_free;
+                
+                // Build the product name as 'NAME (SKU)'
+                $name = $prod->name . ' (' . $prod->sku . ')';
+                // Build the surcharge's label
+                $bogo->label = '(' . $prod->quantity_free . ') FREE ' . $name;
+                // Make our total price negative as it takes away from the total
+                $bogo->total_price = $free_discount * (-1);
+                // Set some default values
+                $bogo->tax_class = 1;
+                $bogo->before_tax = true;
+                $bogo->addToTotal = true;
+                // Add this surcharge to our list of surcharges
+                $surcharges[] = $bogo;
+            }
+            
         }
         
-        $bogo = new BogoSurchargeModel;
-        
-        $bogo->label = "Two Free!";
-        $bogo->total_price = $free_discount * (-1);
-        $bogo->tax_class = 1;
-        $bogo->before_tax = true;
-        $bogo->addToTotal = true;
-        
-        return [$bogo];
+        // Return all of our assembled surcharges
+        return $surcharges;
     }
+    
 }
