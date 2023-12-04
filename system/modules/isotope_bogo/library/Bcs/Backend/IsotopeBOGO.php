@@ -51,13 +51,39 @@ class IsotopeBOGO extends System {
         
         // System Log Message
         \Controller::log('BOGO: postAddItemToCollection Triggered', __CLASS__ . '::' . __FUNCTION__, 'GENERAL');
-
-        $free_count = $item->quantity / 2;
         
+        // Get our product, get our 'bogo_settings' values
+        $prod = Product::findBy('sku', $item->sku);
+        if(isset($prod->bogo_settings)) {
+            
+            // split our comma separates values to find out how many we buy to get how many for free
+            $bogo_settings = explode(",", $prod->bogo_settings);
+            
+    	    // (how many we bought divided by how many we need to buy to trigger bogo, rounded down) times how many we get for free when bogo is triggered
+    	    $quantity_free = floor($quantity / $bogo_settings[0]) * $bogo_settings[1];
+    	    
+    	    // Apply our values to the item and save it
+    	    $item->quantity_free = $quantity_free;
+            $item->quantity += $quantity_free;
+            $item->save();
+            
+        }
+        
+        
+        // STEP TWO
+        // Do the maths based on our setting
+        
+        // STEP THREE
+        // Determine what our new total is and our free count, save the settings
+
+        
+
+        /*
+        $free_count = $item->quantity / 2;
         $item->quantity_free = $free_count;
         $item->quantity += $free_count;
-        
         $item->save();
+        */
         
         // insert custom rule into the database to discount the total of the cart
 
