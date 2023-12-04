@@ -31,7 +31,7 @@ class IsotopeBOGO extends System {
         \Controller::log('BOGO: Hook 1', __CLASS__ . '::' . __FUNCTION__, 'GENERAL');
         
         // Get the actual product using our cart item's sku
-        $prod = $objItem->getProduct();
+        $prod = $item->getProduct();
         
         // If this product has the custom 'bogo_settings' attribute attached to it
         if(isset($prod->bogo_settings)) {
@@ -92,7 +92,44 @@ class IsotopeBOGO extends System {
     public function mergeWithGuestCollection(IsotopeProductCollection $oldCollection, IsotopeProductCollection $newCollection)
     {
         // System Log Message
-        \Controller::log('BOGO: Hook 4', __CLASS__ . '::' . __FUNCTION__, 'GENERAL'); 
+        \Controller::log('BOGO: Hook 4', __CLASS__ . '::' . __FUNCTION__, 'GENERAL');
+        
+        
+        // If we have an old cart and a new cart
+        if ($oldCollection instanceof Cart && $newCollection instanceof Cart) {
+            
+            // Loop through all of the items in our new cart
+            foreach($newCollection->getItems() as $oItem) {
+                
+                // Get the actual product from this cart item
+                $product = $oItem->getProduct();
+                
+                // If this product has our 'bogo_settings" custom attribute applied to it
+                if(isset($product->bogo_settings)) {
+                    
+                    // Break our comma separated value into two, [0] is how many to buy and [1] is how many you get for each [0]
+                    $bogo_settings = explode(",", $product->bogo_settings);
+                    
+                    // Calculate how many we get for free
+    	            $quantity_free = floor($oItem->quantity / $bogo_settings[0]) * $bogo_settings[1];
+    	            
+                    // Apply our free quantity to the cart item
+                    $oItem->quantity_free = $quantity_free;
+                    // Apply the quantity to the cart item
+                    $oItem->quantity += $quantity_free;
+                    
+                }
+                
+                
+                // Limit the quantity to 10
+                if($oItem->quantity > 10)
+                    $oItem->quantity = 10;
+            }
+
+            // Save our modifications
+            $newCollection->save();
+        }
+        
         
         return true;
     }
